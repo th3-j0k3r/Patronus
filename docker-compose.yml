@@ -1,0 +1,60 @@
+version: '3'
+services:
+  patronus-frontend:
+    build:
+      context: ./front-end/
+      dockerfile: Dockerfile
+    image: patronus-frontend
+    container_name: patronus-frontend
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+      - GOOGLE_ID=${GOOGLE_ID}
+      - GOOGLE_SECRET=${GOOGLE_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXT_PUBLIC_AUTH_CALLBACK=${NEXT_PUBLIC_AUTH_CALLBACK}
+      
+  redis:
+      image: redis
+      ports:
+          - "6379:6379"
+
+  core-machine:
+      image: patronus-main
+      working_dir: /root/Patronus/
+      container_name: patronus-cron
+      build:
+          context: .
+          dockerfile: Dockerfile
+      command: ./cron.sh    
+
+
+  app:
+      image: patronus-main
+      container_name: patronus-api-server
+      build:
+          context: .
+          dockerfile: Dockerfile
+      command: gunicorn -w 4 --bind 0.0.0.0:8090 app:app
+      depends_on:
+      - core-machine
+      ports:
+          - "8090:8090"
+      environment: 
+          - PORT=8090
+          - REDIS_HOST=redis
+          - REDIS_PORT=6379          
+      
+    
+  worker:
+      image: patronus-main
+      working_dir: /root/
+      container_name: patronus-worker
+      depends_on:
+      - redis
+      command: rq worker --url redis://redis:6379  --path /root/    
+

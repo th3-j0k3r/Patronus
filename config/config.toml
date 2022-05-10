@@ -1,0 +1,32 @@
+[[rules]]
+	description = "AWS Manager ID"
+	regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
+	tags = ["key", "AWS"]
+[[rules]]
+	description = "AWS Secret Key"
+	regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z\/+]{40}['\"]'''
+	tags = ["key", "AWS"]
+[[rules]]
+	description = "AWS MWS key"
+	regex = '''amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'''
+	tags = ["key", "AWS", "MWS"]
+[[rules]]
+	description = "Slack"
+	regex = '''xox[baprs]-[0-9a-zA-Z-]{10,80}'''
+	tags = ["key", "Slack"]
+[[rules]]
+	description = "Asymmetric Private Key"
+	regex = '''^-----BEGIN ((EC|PGP|DSA|RSA|OPENSSH) )?PRIVATE KEY( BLOCK)?-----[a-zA-Z0-9/=\+\n]{2,}(-----END ((EC|PGP|DSA|RSA|OPENSSH) )?PRIVATE KEY( BLOCK)?-----)?$'''
+	tags = ["key", "AsymmetricPrivateKey"]
+	allowlist = ['''ignore this regex''', '''and this one''']	
+
+[allowlist]
+	description = "Allowlisted files"
+	files = ['''^\.?gitleaks.toml$''',
+	'''(.*?)(jpg|gif|doc|pdf|bin)$''',
+	'''(go.mod|go.sum)$''']
+
+[whitelist]
+	description = "image and path whitelists"
+	files = ['''(.*?)(jpg|gif|doc|pdf|bin)$''', '''(?i)(credscan-config.toml)''']
+	paths = ['''(?i)(test|reports|node_modules)''']

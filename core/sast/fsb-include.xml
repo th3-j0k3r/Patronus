@@ -1,0 +1,16 @@
+<FindBugsFilter>
+    <And>
+    <Match>	
+        <Or>
+            <Bug category="SECURITY"></Bug>
+            <Bug category="MALICIOUS"></Bug>
+        </Or>
+    </Match>
+    <Match>
+        <Or>
+            <Priority value="1"></Priority>
+            <Priority value="2"></Priority>
+        </Or>
+    </Match>
+</And>
+</FindBugsFilter>

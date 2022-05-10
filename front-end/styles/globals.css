@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: Poppins, sans-serif;
+    color: #676767;
+    background-color: #1e1e1e;
+  }
+}
+
+@layer components {
+  .chart-card {
+    @apply w-auto bg-surface-md-dark p-3 rounded shadow-2xl backdrop-blur-2xl h-full;
+  }
+
+  .regular-btn {
+    @apply w-full font-bold text-sm  rounded  hover:shadow-lg  outline-none focus:outline-none mr-1  ease-linear transition-all duration-150;
+  }
+
+  .nav-item-active {
+    @apply bg-white text-black;
+  }
+
+  .tool-tip {
+    position: relative;
+  }
+
+  .tool-tip::before,
+  .tool-tip::after {
+    --scale: 0;
+    --arrow-size: 10px;
+    --tooltip-color: rgb(253, 253, 253);
+
+    position: absolute;
+    top: -0.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0))
+      scale(var(--scale));
+    transition: 150ms transform;
+    transform-origin: bottom center;
+  }
+
+  .tool-tip::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+    content: attr(data-tooltip);
+    color: rgb(0, 0, 0);
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    text-align: center;
+    max-width: 115;
+    width: max-content;
+    background: var(--tooltip-color);
+  }
+
+  .tool-tip:hover::before,
+  .tool-tip:hover::after,
+  .tool-tip:active::before,
+  .tool-tip:active::after {
+    --scale: 1;
+  }
+
+  .tool-tip::after {
+    --translate-y: calc(-1 * var(--arrow-size));
+
+    content: '';
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-color);
+    transform-origin: top center;
+  }
+
+  .cut-text-1 {
+    -webkit-box-orient: vertical;
+    display: -webkit-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+  }
+
+  .nav-item-active > button {
+    @apply bg-white bg-opacity-90 -translate-y-0.5 text-black;
+  }
+
+  button:disabled,
+  button[disabled] {
+    @apply opacity-50 transform transition-all pointer-events-none;
+  }
+
+  input:disabled,
+  input[disabled] {
+    @apply opacity-50 transform transition-all pointer-events-none;
+  }
+
+  .markdown-highlight {
+    background-color: #f0f0f0;
+    color: #000;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
+
+  .stepper .line {
+    width: 2px;
+    background-color: lightgrey !important;
+  }
+  .stepper .lead {
+    font-size: 1.1rem;
+  }
+
+  .hide-scroll-bar::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+    @apply bg-gray-400;
+  }
+
+  .no-scroll-bar::-webkit-scrollbar {
+    @apply bg-transparent w-0 h-0;
+  }
+
+  .skeleton {
+    @apply animate-pulse opacity-80 bg-gray-500;
+  }
+}
