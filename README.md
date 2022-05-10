@@ -21,11 +21,12 @@ Patronus hugely reduces the time and efforts of the security team in thoroughly 
 ![](images/Patronus_HLD.png)
 
 ## Dashboard
-![](images/dashboard.png)
-![](images/dashboard2.png)
+![](images/Dashboard.png )
+![](images/dashboard_2.png)
 ![](images/ondemand.png)
-![](images/secretscanning.png)
-![](images/secretscanning2.png)
+![](images/ondemand_scan.png)
+![](images/secret_scanning.png)
+![](images/asset_inventory.png )
 
 
 
